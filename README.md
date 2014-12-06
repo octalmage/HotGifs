@@ -8,3 +8,5 @@ Press Cmd+Alt+G to bring up the app.
 After pressing enter, the gif url is copied to the clipboard. 
 
 <p align="center"><img src="http://media0.giphy.com/media/ZGXaAKZkjTFpm/giphy.gif"></p>
+
+![](https://cloudup.com/ch-sJ_LRbm6+)
