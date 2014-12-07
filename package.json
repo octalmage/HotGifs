@@ -8,6 +8,11 @@
     "toolbar": false,
     "frame": false,
     "width": 500,
-    "height": 60
+    "height": 60,
+    "resizable": false,
+    "always-on-top": true,
+    "position": "center",
+    "show": false,
+    "show_in_taskbar": false 
   }
 }
