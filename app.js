@@ -19,6 +19,7 @@ tray.menu = menu;
 //Get clipboard reference.
 var clipboard = gui.Clipboard.get();
 
+//Uncomment to show dev tools.
 //win.showDevTools();
 
 
