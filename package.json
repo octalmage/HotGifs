@@ -1,10 +1,10 @@
 {
-  "name": "Hot Gif",
+  "name": "Hot Gifs",
   "main": "index.html",
   "version": "0.0.2",
-  "name": "Hot Gif",
+  "name": "Hot Gifs",
   "window": {
-    "title": "Hot Gif",
+    "title": "Hot Gifs",
     "toolbar": false,
     "frame": false,
     "width": 500,
