@@ -5,6 +5,18 @@ var nativeMenuBar = new gui.Menu({ type: "menubar" });
 nativeMenuBar.createMacBuiltin("Hot Gifs");
 win.menu = nativeMenuBar;
 
+// Create a tray text
+var tray = new gui.Tray({ title: 'Hot Gifs'});
+
+// Give it a menu.
+var menu = new gui.Menu();
+menu.append(new gui.MenuItem({label: 'Exit', click: function() 
+{
+    win.close();
+}, }));
+tray.menu = menu;
+
+//Get clipboard reference.
 var clipboard = gui.Clipboard.get();
 
 //win.showDevTools();
