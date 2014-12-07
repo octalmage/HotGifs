@@ -2,7 +2,7 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 
 var nativeMenuBar = new gui.Menu({ type: "menubar" });
-nativeMenuBar.createMacBuiltin("Hot Gif");
+nativeMenuBar.createMacBuiltin("Hot Gifs");
 win.menu = nativeMenuBar;
 
 var clipboard = gui.Clipboard.get();
