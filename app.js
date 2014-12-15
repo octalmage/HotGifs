@@ -80,9 +80,9 @@ $(document).on("ready", function()
 
 function search()
 {
+    win.hide();
 		keyword=$("#s").val();
 		$("#s").val("");
-		win.hide();
 		url=translate_endpoint+"/"+api_version+"/gifs/translate?s=" + keyword + "&api_key=" + api_key;
 
 		$.ajax({type: "GET",url: url }).done(function(res) 
