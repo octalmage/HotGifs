@@ -60,10 +60,10 @@ $(document).on("ready", function()
 	});
 	$("#s").keyup(function (e) 
 	{
-    	if (e.keyCode == 13) 
-    	{
-        	search();
-    	}
+    if (e.keyCode == 13) 
+    {
+      search();
+    }
 	});
 
   $(document).keyup(function(e) 
@@ -84,10 +84,16 @@ function search()
 		keyword=$("#s").val();
 		$("#s").val("");
 		url=translate_endpoint+"/"+api_version+"/gifs/translate?s=" + keyword + "&api_key=" + api_key;
-
 		$.ajax({type: "GET",url: url }).done(function(res) 
-  		{
-    		clipboard.set(res.data.images.original.url, 'text');
-  		});
+  	{
+      try 
+      {
+    	 clipboard.set(res.data.images.original.url, 'text');
+      }
+      catch(error)
+      {
+        clipboard.set("No Results", 'text');
+      }
+  	});
 
 }
