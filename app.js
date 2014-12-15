@@ -65,6 +65,17 @@ $(document).on("ready", function()
         	search();
     	}
 	});
+
+  $(document).keyup(function(e) 
+  {
+    //Close the dialog if esc is pressed. 
+    if (e.keyCode == 27)
+    { 
+      $("#s").val("");
+      win.hide();
+    }   
+  });
+
 });
 
 function search()
