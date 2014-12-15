@@ -12,7 +12,7 @@ var tray = new gui.Tray({ title: 'Hot Gifs'});
 var menu = new gui.Menu();
 menu.append(new gui.MenuItem({label: 'Exit', click: function() 
 {
-    win.close();
+    gui.App.quit();
 }, }));
 tray.menu = menu;
 
