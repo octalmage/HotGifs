@@ -32,8 +32,14 @@ var option = {
   key : "Ctrl+Alt+G",
   active : function() {
   	win.show(); 
-    win.focus(); 
-    $("#s").focus();
+
+    //Workaround to focus the input after showing. 
+    setTimeout(function()
+    {
+      win.focus();
+      $("#s").focus();
+    }, 200);
+
   },
   failed : function(msg) {
     console.log(msg);
