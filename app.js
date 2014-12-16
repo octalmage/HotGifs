@@ -27,6 +27,9 @@ var api_key="dc6zaTOxFJmzC";
 var translate_endpoint="http://api.giphy.com";
 var api_version="v1";
 
+//Settings
+var shouldcheckforupdate=1;
+
 //Hotkey Stuff
 var option = {
   key : "Ctrl+Alt+G",
@@ -54,6 +57,11 @@ gui.App.registerGlobalHotKey(shortcut);
 
 $(document).on("ready", function()
 {
+  if (shouldcheckforupdate)
+  {
+    checkforupdate();
+  }
+  
 	$("#search").on("click", function()
 	{
 		search();
@@ -96,4 +104,17 @@ function search()
       }
   	});
 
+}
+
+function checkforupdate()
+{
+  app_version=gui.App.manifest.version;
+  $.ajax({type: "GET",url: "https://api.github.com/repos/octalmage/hotgifs/releases" }).done(function(releases)
+  {
+    current_version=releases[0].name.substr(1, releases[0].name.length);
+    if (current_version!=app_version)
+    {
+      alert("Update available!")
+    }
+  }); 
 }
