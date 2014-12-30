@@ -115,6 +115,7 @@ function checkforupdate()
     if (current_version!=app_version)
     {
       alert("Update available!")
+      gui.Shell.openExternal("https://github.com/octalmage/HotGifs/releases");
     }
   }); 
 }
