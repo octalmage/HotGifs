@@ -1,5 +1,6 @@
 var gui = require('nw.gui');
 var win = gui.Window.get();
+var app_version = gui.App.manifest.version;
 
 var nativeMenuBar = new gui.Menu({ type: "menubar" });
 nativeMenuBar.createMacBuiltin("Hot Gifs");
@@ -10,6 +11,8 @@ var tray = new gui.Tray({ title: 'Hot Gifs'});
 
 // Give it a menu.
 var menu = new gui.Menu();
+menu.append(new gui.MenuItem({ label:  'v' + app_version }));
+menu.append(new gui.MenuItem({ type: 'separator' }));
 menu.append(new gui.MenuItem({label: 'Exit', click: function() 
 {
     gui.App.quit();
@@ -108,7 +111,6 @@ function search()
 
 function checkforupdate()
 {
-  app_version=gui.App.manifest.version;
   $.ajax({type: "GET",url: "https://api.github.com/repos/octalmage/hotgifs/releases" }).done(function(releases)
   {
     current_version=releases[0].name.substr(1, releases[0].name.length);
