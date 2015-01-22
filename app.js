@@ -25,7 +25,6 @@ var clipboard = gui.Clipboard.get();
 //Uncomment to show dev tools.
 //win.showDevTools();
 
-
 var api_key="dc6zaTOxFJmzC";
 var translate_endpoint="http://api.giphy.com";
 var api_version="v1";
@@ -44,7 +43,7 @@ var option = {
     {
       win.focus();
       $("#s").focus();
-    }, 200);
+    }, 0);
 
   },
   failed : function(msg) {
