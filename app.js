@@ -84,6 +84,7 @@ $(document).on("ready", function()
 	{
 		search();
 	});
+
 	$("#s").keyup(function(e)
 	{
 		if (e.keyCode == 13)
