@@ -93,6 +93,12 @@ $(document).on("ready", function()
 		}
 	});
 
+	//Double click to center GUI. 
+	$(document).on("dblclick", function centerwindow()
+	{
+		win.setPosition("center");
+	});
+
 	$(document).keyup(function(e)
 	{
 		//Close the dialog if esc is pressed. 
