@@ -2,12 +2,15 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
-var nativeMenuBar = new gui.Menu(
+if (process.platform === "darwin")
 {
-	type: "menubar"
-});
-nativeMenuBar.createMacBuiltin("Hot Gifs");
-win.menu = nativeMenuBar;
+	var nativeMenuBar = new gui.Menu(
+	{
+		type: "menubar"
+	});
+	nativeMenuBar.createMacBuiltin("Hot Gifs");
+	win.menu = nativeMenuBar;
+}
 
 // Create a tray text
 var tray = new gui.Tray(
