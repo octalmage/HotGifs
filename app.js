@@ -58,7 +58,7 @@ var option = {
 	{
 		win.show();
 
-		//Workaround to focus the input after showing. 
+		//Workaround to focus the input after showing.
 		setTimeout(function()
 		{
 			win.focus();
@@ -96,7 +96,7 @@ $(document).on("ready", function()
 		}
 	});
 
-	//Double click to center GUI. 
+	//Double click to center GUI.
 	$(document).on("dblclick", function centerwindow()
 	{
 		win.setPosition("center");
@@ -104,7 +104,7 @@ $(document).on("ready", function()
 
 	$(document).keyup(function(e)
 	{
-		//Close the dialog if esc is pressed. 
+		//Close the dialog if esc is pressed.
 		if (e.keyCode == 27)
 		{
 			$("#s").val("");
