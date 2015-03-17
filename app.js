@@ -92,16 +92,34 @@ $(document).on("ready", function()
 		search();
 	});
 
-	$("#s").keyup(function(e)
+	$("#s").keydown(function(e)
 	{
-		//Search if enter is clicked.
+		//Tab to skip gif.
+		if (e.keyCode == 9 && keydown)
+		{
+			e.preventDefault();
+			search();
+			return;
+		}
+		
+		if (keydown) return;
+			
+		//Search if enter is pressed down.
 		if (e.keyCode == 13)
 		{
 			keydown = 1;
 			search();
 		}
 	});
+	
+	$("#s").keyup(function(e)
+	{
+		//Hide window if enter is released.
+		if (e.keyCode == 13)
+		{
 			closeGUI();
+		}
+	});
 
 	//Double click to center GUI.
 	$(document).on("dblclick", function centerwindow()
@@ -122,9 +140,8 @@ $(document).on("ready", function()
 
 function search()
 {
-	win.hide();
 	keyword = $("#s").val();
-	$("#s").val("");
+	$("#i").attr("src", "load.gif");
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + keyword + "&api_key=" + api_key;
 	$.ajax(
 	{
@@ -135,6 +152,11 @@ function search()
 		try
 		{
 			clipboard.set(res.data.images.original.url, 'text');
+			if (showing)
+			{
+				win.height = 270;
+				$("#i").attr("src", res.data.images.original.url);	
+			}
 		}
 		catch (error)
 		{
