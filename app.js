@@ -90,6 +90,7 @@ $(document).on("ready", function()
 
 	$("#s").keyup(function(e)
 	{
+		//Search if enter is clicked.
 		if (e.keyCode == 13)
 		{
 			search();
