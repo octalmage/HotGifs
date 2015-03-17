@@ -2,6 +2,7 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
+var keydown = 0;
 var showing = 0;
 
 if (process.platform === "darwin")
@@ -96,6 +97,7 @@ $(document).on("ready", function()
 		//Search if enter is clicked.
 		if (e.keyCode == 13)
 		{
+			keydown = 1;
 			search();
 		}
 	});
@@ -142,6 +144,7 @@ function search()
 
 }
 
+	keydown = 0;
 	showing = 0;
 function checkforupdate()
 {
