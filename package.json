@@ -1,8 +1,7 @@
 {
   "name": "Hot Gifs",
   "main": "index.html",
-  "version": "0.0.4",
-  "name": "Hot Gifs",
+  "version": "0.1.0",
   "window": {
     "title": "Hot Gifs",
     "toolbar": false,
@@ -13,6 +12,6 @@
     "always-on-top": true,
     "position": "center",
     "show": false,
-    "show_in_taskbar": false 
+    "show_in_taskbar": false
   }
 }
