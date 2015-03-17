@@ -2,6 +2,9 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
+var keydown = 0;
+var showing = 0;
+
 if (process.platform === "darwin")
 {
 	var nativeMenuBar = new gui.Menu(
@@ -56,6 +59,7 @@ var option = {
 	key: "Ctrl+Alt+G",
 	active: function()
 	{
+		showing = 1;
 		win.show();
 
 		//Workaround to focus the input after showing.
@@ -88,11 +92,32 @@ $(document).on("ready", function()
 		search();
 	});
 
-	$("#s").keyup(function(e)
+	$("#s").keydown(function(e)
 	{
+		//Tab to skip gif.
+		if (e.keyCode == 9 && keydown)
+		{
+			e.preventDefault();
+			search();
+			return;
+		}
+		
+		if (keydown) return;
+			
+		//Search if enter is pressed down.
 		if (e.keyCode == 13)
 		{
+			keydown = 1;
 			search();
+		}
+	});
+	
+	$("#s").keyup(function(e)
+	{
+		//Hide window if enter is released.
+		if (e.keyCode == 13)
+		{
+			closeGUI();
 		}
 	});
 
@@ -106,9 +131,8 @@ $(document).on("ready", function()
 	{
 		//Close the dialog if esc is pressed.
 		if (e.keyCode == 27)
-		{
-			$("#s").val("");
-			win.hide();
+		{	
+			closeGUI();
 		}
 	});
 
@@ -116,9 +140,8 @@ $(document).on("ready", function()
 
 function search()
 {
-	win.hide();
 	keyword = $("#s").val();
-	$("#s").val("");
+	$("#i").attr("src", "load.gif");
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + keyword + "&api_key=" + api_key;
 	$.ajax(
 	{
@@ -129,6 +152,11 @@ function search()
 		try
 		{
 			clipboard.set(res.data.images.original.url, 'text');
+			if (showing)
+			{
+				win.height = 270;
+				$("#i").attr("src", res.data.images.original.url);	
+			}
 		}
 		catch (error)
 		{
@@ -136,6 +164,15 @@ function search()
 		}
 	});
 
+}
+
+function closeGUI()
+{
+	keydown = 0;
+	showing = 0;
+	win.height = 60;
+	$("#s").val("");
+	win.hide();
 }
 
 function checkforupdate()
