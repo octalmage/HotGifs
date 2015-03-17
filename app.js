@@ -2,6 +2,8 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
+var showing = 0;
+
 if (process.platform === "darwin")
 {
 	var nativeMenuBar = new gui.Menu(
@@ -56,6 +58,7 @@ var option = {
 	key: "Ctrl+Alt+G",
 	active: function()
 	{
+		showing = 1;
 		win.show();
 
 		//Workaround to focus the input after showing.
@@ -139,6 +142,7 @@ function search()
 
 }
 
+	showing = 0;
 function checkforupdate()
 {
 	$.ajax(
