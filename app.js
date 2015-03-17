@@ -101,6 +101,7 @@ $(document).on("ready", function()
 			search();
 		}
 	});
+			closeGUI();
 
 	//Double click to center GUI.
 	$(document).on("dblclick", function centerwindow()
@@ -112,9 +113,8 @@ $(document).on("ready", function()
 	{
 		//Close the dialog if esc is pressed.
 		if (e.keyCode == 27)
-		{
-			$("#s").val("");
-			win.hide();
+		{	
+			closeGUI();
 		}
 	});
 
@@ -144,8 +144,15 @@ function search()
 
 }
 
+function closeGUI()
+{
 	keydown = 0;
 	showing = 0;
+	win.height = 60;
+	$("#s").val("");
+	win.hide();
+}
+
 function checkforupdate()
 {
 	$.ajax(
