@@ -142,7 +142,8 @@ function search()
 {
 	keyword = $("#s").val();
 	$("#i").attr("src", "load.gif");
-	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + keyword + "&api_key=" + api_key;
+	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + api_key;
+	console.log(url);
 	$.ajax(
 	{
 		type: "GET",
