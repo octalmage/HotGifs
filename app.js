@@ -142,6 +142,7 @@ function search()
 {
 	keyword = $("#s").val();
 	$("#i").attr("src", "load.gif");
+	$("#scene").show();
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + api_key;
 	console.log(url);
 	$.ajax(
@@ -173,6 +174,8 @@ function closeGUI()
 	showing = 0;
 	win.height = 60;
 	$("#s").val("");
+	$("#scene").hide();
+	$("#i").attr("src", "");
 	win.hide();
 }
 
