@@ -5,6 +5,9 @@ var app_version = gui.App.manifest.version;
 var keydown = 0;
 var showing = 0;
 
+var previewtext = "Hold enter to preview.";
+var skiptext = "Press tab to skip.";
+
 if (process.platform === "darwin")
 {
 	var nativeMenuBar = new gui.Menu(
@@ -94,9 +97,17 @@ $(document).on("ready", function()
 
 	$("#s").keydown(function(e)
 	{
+		//If the instruction text isn't showing, and it's the preview instructions, show it.
+		if (!instructionsshowing() && $("#instructions").text() == previewtext)
+			$("#instructions").fadeIn();
+		
 		//Tab to skip gif.
 		if (e.keyCode == 9 && keydown)
 		{
+			//Hide skip instructions if they're currently showing.
+			if (instructionsshowing())
+				$("#instructions").fadeOut();
+				
 			e.preventDefault();
 			search();
 			return;
@@ -107,6 +118,13 @@ $(document).on("ready", function()
 		//Search if enter is pressed down.
 		if (e.keyCode == 13)
 		{
+			//Show skip instructions.
+			$("#instructions").fadeOut(null, function()
+			{
+				$("#instructions").text(skiptext);
+				$("#instructions").fadeIn();
+			})
+			
 			keydown = 1;
 			search();
 		}
@@ -176,7 +194,13 @@ function closeGUI()
 	$("#s").val("");
 	$("#scene").hide();
 	$("#i").attr("src", "");
+	$("#instructions").stop().hide().text(previewtext);
 	win.hide();
+}
+
+function instructionsshowing()
+{
+	return $("#instructions").css("display") != "none";
 }
 
 function checkforupdate()
