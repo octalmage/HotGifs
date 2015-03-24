@@ -215,7 +215,7 @@ function checkforupdate()
 		if (current_version != app_version)
 		{
 			alert("Update available! \nInstalled version: " + app_version + ".\nLatest version: " + current_version + ".")
-			gui.Shell.openExternal("https://github.com/octalmage/HotGifs/releases");
+			gui.Shell.openExternal("https://github.com/octalmage/HotGifs/releases/latest/");
 		}
 	});
 }
