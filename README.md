@@ -3,7 +3,7 @@ Hot Gifs
 
 Press Cmd+Alt+G to bring up the app.
 
-<p align="center"><img src="https://cldup.com/Q9SAxHaPO1.png"></p>
+<p align="center"><img src="https://cldup.com/sCYVonrdgF.png"></p>
 
 After pressing enter, the gif url is copied to the clipboard. 
 
