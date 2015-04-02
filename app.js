@@ -30,6 +30,19 @@ menu.append(new gui.MenuItem(
 {
 	label: 'v' + app_version
 }));
+
+//Run at startup.
+if (process.platform === "darwin")
+{
+	var startup = new gui.MenuItem(
+	{
+		label: 'Run at startup?',
+		type: 'checkbox',
+		click: runatstartup
+	});
+	menu.append(startup);
+}
+
 menu.append(new gui.MenuItem(
 {
 	type: 'separator'
@@ -218,4 +231,9 @@ function checkforupdate()
 			gui.Shell.openExternal("https://github.com/octalmage/HotGifs/releases/latest/");
 		}
 	});
+}
+
+function runatstartup()
+{
+	console.log(startup.checked)
 }
