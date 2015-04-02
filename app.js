@@ -18,14 +18,22 @@ if (process.platform === "darwin")
 	win.menu = nativeMenuBar;
 }
 
-// Create a tray text
+//Create tray icon.
 var tray = new gui.Tray(
 {
-	title: 'Hot Gifs'
+	icon: 'tray.png'
 });
 
-// Give it a menu.
+//Give it a menu.
 var menu = new gui.Menu();
+menu.append(new gui.MenuItem(
+{
+	label: 'Hot Gifs'
+}));
+menu.append(new gui.MenuItem(
+{
+	type: 'separator'
+}));
 menu.append(new gui.MenuItem(
 {
 	label: 'v' + app_version
