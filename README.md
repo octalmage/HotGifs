@@ -1,4 +1,4 @@
-Hot Gifs
+![](https://cldup.com/xYsDNqLan4.png)
 =======
 
 Press Cmd+Alt+G to bring up the app.
