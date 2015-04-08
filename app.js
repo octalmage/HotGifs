@@ -2,6 +2,9 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
+var fs = require("fs");
+var config = JSON.parse(fs.readFileSync("config.json", "utf8"));
+
 var keydown = 0;
 var showing = 0;
 
@@ -58,7 +61,6 @@ var clipboard = gui.Clipboard.get();
 //Uncomment to show dev tools.
 //win.showDevTools();
 
-var api_key = "dc6zaTOxFJmzC";
 var translate_endpoint = "http://api.giphy.com";
 var api_version = "v1";
 
@@ -169,7 +171,7 @@ function search()
 	keyword = $("#s").val();
 	$("#i").attr("src", "load.gif");
 	$("#scene").show();
-	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + api_key;
+	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
 	console.log(url);
 	$.ajax(
 	{
