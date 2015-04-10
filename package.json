@@ -13,5 +13,6 @@
     "position": "center",
     "show": false,
     "show_in_taskbar": false
-  }
+    },
+"license": "MIT"
 }

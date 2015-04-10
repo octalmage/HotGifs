@@ -12,3 +12,7 @@ After pressing enter, the gif url is copied to the clipboard.
 <h3><a href="https://github.com/octalmage/HotGifs/releases/latest/">Download.</a>
 
 <p align="right"><img src="https://cloudup.com/ch-sJ_LRbm6+"></p>
+
+## License
+
+MIT
