@@ -1,13 +1,21 @@
 ![](https://cldup.com/xYsDNqLan4.png)
 =======
 
-Press Cmd+Alt+G to bring up the app.
+## Description
+
+Hot Gifs is the quickest way to find gifs and spam your friends. 
+
+## Instructions
+
+Press `Command+Alt+G` to bring up the app. 
 
 <p align="center"><img src="https://cldup.com/sCYVonrdgF.png"></p>
 
-After pressing enter, the gif url is copied to the clipboard. 
+Type in a keyword or phrase then hit enter, and the gif url is copied to your clipboard! 
 
 <p align="center"><img src="http://media3.giphy.com/media/Xn9jvM3BOuVs4/giphy.gif"></p>
+
+Now your ready to use it anywhere, just paste it! 
 
 <h3><a href="https://github.com/octalmage/HotGifs/releases/latest/">Download</a>
 
