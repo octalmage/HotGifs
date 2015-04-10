@@ -1,9 +1,7 @@
 ![](https://cldup.com/xYsDNqLan4.png)
 =======
 
-## Description
-
-Hot Gifs is the quickest way to find gifs and spam your friends. 
+Hot Gifs is the quickest way to find great gifs on your computer.
 
 ## Instructions
 
@@ -17,7 +15,7 @@ Type in a keyword or phrase then hit enter, and the gif url is copied to your cl
 
 Now your ready to use it anywhere, just paste it! 
 
-<h3><a href="https://github.com/octalmage/HotGifs/releases/latest/">Download</a>
+## [Download](https://github.com/octalmage/HotGifs/releases/latest/)
 
 ## License
 
