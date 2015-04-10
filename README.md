@@ -13,6 +13,6 @@ After pressing enter, the gif url is copied to the clipboard.
 
 ## License
 
-MIT
+GPL v2
 
 <p align="right"><img src="https://cloudup.com/ch-sJ_LRbm6+"></p>
