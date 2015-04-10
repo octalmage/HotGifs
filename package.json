@@ -1,18 +1,19 @@
 {
-  "name": "Hot Gifs",
-  "main": "index.html",
-  "version": "0.1.6",
-  "window": {
-    "title": "Hot Gifs",
-    "toolbar": false,
-    "frame": false,
-    "width": 500,
-    "height": 60,
-    "resizable": false,
-    "always-on-top": true,
-    "position": "center",
-    "show": false,
-    "show_in_taskbar": false
-    },
-"license": "MIT"
+	"name": "Hot Gifs",
+	"main": "index.html",
+	"version": "0.1.6",
+	"window":
+	{
+		"title": "Hot Gifs",
+		"toolbar": false,
+		"frame": false,
+		"width": 500,
+		"height": 60,
+		"resizable": false,
+		"always-on-top": true,
+		"position": "center",
+		"show": false,
+		"show_in_taskbar": false
+	},
+	"license": "MIT"
 }
