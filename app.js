@@ -181,7 +181,7 @@ function search()
 	{
 		try
 		{
-			clipboard.set(res.data.images.original.url, 'text');
+			clipboard.set(res.data.images.original.url, "text");
 			if (showing)
 			{
 				win.height = 270;
@@ -190,7 +190,7 @@ function search()
 		}
 		catch (error)
 		{
-			clipboard.set("No Results", 'text');
+			clipboard.set("No Results", "text");
 		}
 	});
 
