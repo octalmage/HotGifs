@@ -179,7 +179,8 @@ function search()
 		url: url
 	}).done(function(res)
 	{
-		try
+		//If results are found. 
+		if (typeof res.data.images != "undefined")
 		{
 			clipboard.set(res.data.images.original.url, "text");
 			if (showing)
@@ -188,9 +189,17 @@ function search()
 				$("#i").attr("src", res.data.images.original.url);	
 			}
 		}
-		catch (error)
+		else
 		{
 			clipboard.set("No Results", "text");
+			if (showing)
+			{
+				$("#instructions").fadeOut(null, function()
+				{
+					$("#instructions").text("No Results.");
+					$("#instructions").fadeIn();
+				});
+			}
 		}
 	});
 
