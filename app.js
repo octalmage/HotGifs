@@ -133,7 +133,7 @@ $(document).on("ready", function()
 			{
 				$("#instructions").text(skiptext);
 				$("#instructions").fadeIn();
-			})
+			});
 			
 			keydown = 1;
 			search();
