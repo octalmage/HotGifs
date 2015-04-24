@@ -123,6 +123,7 @@ $(document).on("ready", function()
 			return;
 		}
 		
+		//Enter is currently held down.
 		if (keydown) return;
 			
 		//Search if enter is pressed down.
