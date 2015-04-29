@@ -15,5 +15,8 @@
 		"show": false,
 		"show_in_taskbar": false
 	},
-	"license": "GPL v2"
+	"license": "GPL v2",
+    "dependencies": {
+      "runatstartup": "0.0.1"
+    }
 }

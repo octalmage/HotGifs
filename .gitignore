@@ -1,3 +1,4 @@
 build/
 .atom-build.json
 config.json
+node_modules/

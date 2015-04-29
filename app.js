@@ -2,6 +2,8 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
+var runatstartup = require("runatstartup");
+
 var fs = require("fs");
 var config = JSON.parse(fs.readFileSync("config.json", "utf8"));
 
@@ -10,6 +12,8 @@ var showing = 0;
 
 var previewtext = "Hold enter to preview.";
 var skiptext = "Press tab to skip.";
+
+var startup;
 
 if (process.platform === "darwin")
 {
@@ -41,6 +45,19 @@ menu.append(new gui.MenuItem(
 {
 	label: 'v' + app_version
 }));
+
+//Run at startup.
+if (process.platform === "darwin")
+{
+	startup = new gui.MenuItem(
+	{
+		label: 'Run at startup?',
+		type: 'checkbox',
+		click: startupClicked
+	});
+	menu.append(startup);
+}
+
 menu.append(new gui.MenuItem(
 {
 	type: 'separator'
@@ -92,6 +109,15 @@ var option = {
 var shortcut = new gui.Shortcut(option);
 
 gui.App.registerGlobalHotKey(shortcut);
+
+//Startup check.
+runatstartup.enabled(function(found)
+{
+	if (found)
+	{
+		startup.checked = true;
+	}
+});
 
 $(document).on("ready", function()
 {
@@ -238,4 +264,16 @@ function checkforupdate()
 			gui.Shell.openExternal("https://github.com/octalmage/HotGifs/releases/latest/");
 		}
 	});
+}
+
+function startupClicked()
+{
+	if (startup.checked)
+	{
+		runatstartup.on();
+	}
+	else
+	{
+		runatstartup.off();
+	}
 }
