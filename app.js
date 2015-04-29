@@ -13,7 +13,7 @@ var showing = 0;
 var previewtext = "Hold enter to preview.";
 var skiptext = "Press tab to skip.";
 
-var startup = 0;
+var startup;
 
 if (process.platform === "darwin")
 {
