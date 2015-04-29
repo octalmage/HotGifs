@@ -4,6 +4,9 @@ var app_version = gui.App.manifest.version;
 
 var runatstartup = require("runatstartup");
 
+var fs = require("fs");
+var config = JSON.parse(fs.readFileSync("config.json", "utf8"));
+
 var keydown = 0;
 var showing = 0;
 
@@ -22,14 +25,22 @@ if (process.platform === "darwin")
 	win.menu = nativeMenuBar;
 }
 
-// Create a tray text
+//Create tray icon.
 var tray = new gui.Tray(
 {
-	title: 'Hot Gifs'
+	icon: 'tray.png'
 });
 
-// Give it a menu.
+//Give it a menu.
 var menu = new gui.Menu();
+menu.append(new gui.MenuItem(
+{
+	label: 'Hot Gifs'
+}));
+menu.append(new gui.MenuItem(
+{
+	type: 'separator'
+}));
 menu.append(new gui.MenuItem(
 {
 	label: 'v' + app_version
@@ -67,7 +78,6 @@ var clipboard = gui.Clipboard.get();
 //Uncomment to show dev tools.
 //win.showDevTools();
 
-var api_key = "dc6zaTOxFJmzC";
 var translate_endpoint = "http://api.giphy.com";
 var api_version = "v1";
 
@@ -139,6 +149,7 @@ $(document).on("ready", function()
 			return;
 		}
 		
+		//Enter is currently held down.
 		if (keydown) return;
 			
 		//Search if enter is pressed down.
@@ -149,7 +160,7 @@ $(document).on("ready", function()
 			{
 				$("#instructions").text(skiptext);
 				$("#instructions").fadeIn();
-			})
+			});
 			
 			keydown = 1;
 			search();
@@ -187,7 +198,7 @@ function search()
 	keyword = $("#s").val();
 	$("#i").attr("src", "load.gif");
 	$("#scene").show();
-	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + api_key;
+	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
 	console.log(url);
 	$.ajax(
 	{
@@ -195,18 +206,27 @@ function search()
 		url: url
 	}).done(function(res)
 	{
-		try
+		//If results are found. 
+		if (typeof res.data.images != "undefined")
 		{
-			clipboard.set(res.data.images.original.url, 'text');
+			clipboard.set(res.data.images.original.url, "text");
 			if (showing)
 			{
 				win.height = 270;
 				$("#i").attr("src", res.data.images.original.url);	
 			}
 		}
-		catch (error)
+		else
 		{
-			clipboard.set("No Results", 'text');
+			clipboard.set("No Results", "text");
+			if (showing)
+			{
+				$("#instructions").fadeOut(null, function()
+				{
+					$("#instructions").text("No Results.");
+					$("#instructions").fadeIn();
+				});
+			}
 		}
 	});
 
