@@ -13,5 +13,8 @@
     "position": "center",
     "show": false,
     "show_in_taskbar": false
+  },
+  "dependencies": {
+    "runatstartup": "0.0.1"
   }
 }
