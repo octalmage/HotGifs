@@ -1,5 +1,5 @@
 {
-	"name": "Hot Gifs",
+	"name": "HotGifs",
 	"main": "index.html",
 	"version": "0.1.6",
 	"window":
@@ -16,7 +16,15 @@
 		"show_in_taskbar": false
 	},
 	"license": "GPL v2",
-    "dependencies": {
-      "runatstartup": "0.0.1"
-    }
+	"dependencies":
+	{
+		"runatstartup": "0.0.1"
+	},
+	"devDependencies":
+	{
+		"grunt": "^0.4.5",
+		"grunt-contrib-jshint": "^0.10.0",
+		"grunt-jsbeautifier": "^0.2.7",
+		"grunt-node-webkit-builder": "^1.0.0"
+	}
 }
