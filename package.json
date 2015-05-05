@@ -1,30 +1,27 @@
 {
-	"name": "HotGifs",
-	"main": "index.html",
-	"version": "0.1.6",
-	"window":
-	{
-		"title": "Hot Gifs",
-		"toolbar": false,
-		"frame": false,
-		"width": 500,
-		"height": 60,
-		"resizable": false,
-		"always-on-top": true,
-		"position": "center",
-		"show": false,
-		"show_in_taskbar": false
-	},
-	"license": "GPL v2",
-	"dependencies":
-	{
-        "auto-launch": "^0.1.18"
-	},
-	"devDependencies":
-	{
-		"grunt": "^0.4.5",
-		"grunt-contrib-jshint": "^0.10.0",
-		"grunt-jsbeautifier": "^0.2.7",
-		"grunt-node-webkit-builder": "^1.0.0"
-	}
+  "name": "HotGifs",
+  "main": "index.html",
+  "version": "0.1.7",
+  "window": {
+    "title": "Hot Gifs",
+    "toolbar": false,
+    "frame": false,
+    "width": 500,
+    "height": 60,
+    "resizable": false,
+    "always-on-top": true,
+    "position": "center",
+    "show": false,
+    "show_in_taskbar": false
+  },
+  "license": "GPL v2",
+  "dependencies": {
+    "auto-launch": "^0.1.18"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-jsbeautifier": "^0.2.7",
+    "grunt-node-webkit-builder": "^1.0.0"
+  }
 }
