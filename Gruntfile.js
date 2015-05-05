@@ -42,7 +42,7 @@ module.exports = function(grunt)
 				buildDir: "./build",
                 macIcns: "./logo.icns"
 			},
-			src: ["index.html", "package.json", "app.js", "load.gif", "tray.png", "g.png", "config.json", "node_modules/{runatstartup}/**"]
+			src: ["index.html", "package.json", "app.js", "load.gif", "tray.png", "g.png", "config.json", "node_modules/{auto-launch}/**"]
 		}
 	});
 
