@@ -2,7 +2,13 @@ var gui = require('nw.gui');
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
-var runatstartup = require("runatstartup");
+var AutoLaunch = require("auto-launch");
+
+var runatstartup = new AutoLaunch(
+{
+    name: "Hot Gifs",
+	isHidden: "false"
+});
 
 var fs = require("fs");
 var config = JSON.parse(fs.readFileSync("config.json", "utf8"));
@@ -111,7 +117,7 @@ var shortcut = new gui.Shortcut(option);
 gui.App.registerGlobalHotKey(shortcut);
 
 //Startup check.
-runatstartup.enabled(function(found)
+runatstartup.isEnabled(function(found)
 {
 	if (found)
 	{
@@ -270,10 +276,10 @@ function startupClicked()
 {
 	if (startup.checked)
 	{
-		runatstartup.on();
+		runatstartup.enable();
 	}
 	else
 	{
-		runatstartup.off();
+		runatstartup.disable();
 	}
 }
