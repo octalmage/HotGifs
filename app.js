@@ -1,4 +1,4 @@
-var gui = require('nw.gui');
+var gui = require("nw.gui");
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
@@ -34,22 +34,22 @@ if (process.platform === "darwin")
 //Create tray icon.
 var tray = new gui.Tray(
 {
-	icon: 'tray.png'
+	icon: "tray.png"
 });
 
 //Give it a menu.
 var menu = new gui.Menu();
 menu.append(new gui.MenuItem(
 {
-	label: 'Hot Gifs'
+	label: "Hot Gifs"
 }));
 menu.append(new gui.MenuItem(
 {
-	type: 'separator'
+	type: "separator"
 }));
 menu.append(new gui.MenuItem(
 {
-	label: 'v' + app_version
+	label: "v" + app_version
 }));
 
 //Run at startup.
@@ -57,8 +57,8 @@ if (process.platform === "darwin")
 {
 	startup = new gui.MenuItem(
 	{
-		label: 'Run at startup?',
-		type: 'checkbox',
+		label: "Run at startup?",
+		type: "checkbox",
 		click: startupClicked
 	});
 	menu.append(startup);
@@ -66,11 +66,11 @@ if (process.platform === "darwin")
 
 menu.append(new gui.MenuItem(
 {
-	type: 'separator'
+	type: "separator"
 }));
 menu.append(new gui.MenuItem(
 {
-	label: 'Exit',
+	label: "Exit",
 	click: function()
 	{
 		gui.App.quit();
@@ -196,7 +196,6 @@ $(document).on("ready", function()
 			closeGUI();
 		}
 	});
-
 });
 
 function search()
