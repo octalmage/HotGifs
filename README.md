@@ -5,7 +5,7 @@ Hot Gifs is the quickest way to find great gifs on your computer.
 
 ## Instructions
 
-Press `Command+Alt+G` to bring up the app. 
+Press <kbd>Command</kbd>+<kbd>Alt</kbd>+<kbd>G</kbd> to bring up the app. 
 
 <p align="center"><img src="https://cldup.com/sCYVonrdgF.png"></p>
 
