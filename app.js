@@ -201,7 +201,7 @@ $(document).on("ready", function()
 function search()
 {
 	keyword = $("#s").val();
-	$("#i").attr("src", "load.gif");
+	$("#i").attr("src", "");
 	$("#scene").show();
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
 	console.log(url);
