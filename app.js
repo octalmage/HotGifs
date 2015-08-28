@@ -20,6 +20,8 @@ var previewtext = "Hold enter to preview.";
 var skiptext = "Press tab to skip.";
 
 var startup;
+var gifhistory = [];
+var current = 0;
 
 if (process.platform === "darwin")
 {
@@ -151,7 +153,22 @@ $(document).on("ready", function()
 				$("#instructions").fadeOut();
 				
 			e.preventDefault();
-			search();
+			
+			if (e.shiftKey)
+			{
+				current++;
+				$("#i").attr("src", gifhistory[current]);
+			}
+			else 
+			{
+				if (current > 0)
+				{
+					current = 0;
+					gifhistory = [];
+				}
+					
+				search();
+			}
 			return;
 		}
 		
@@ -219,6 +236,7 @@ function search()
 			{
 				win.height = 270;
 				$("#i").attr("src", res.data.images.original.url);	
+				gifhistory.unshift(res.data.images.original.url);
 			}
 		}
 		else
