@@ -204,7 +204,6 @@ function search()
 	$("#i").attr("src", "load.gif");
 	$("#scene").show();
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
-	console.log(url);
 	$.ajax(
 	{
 		type: "GET",
