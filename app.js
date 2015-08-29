@@ -34,7 +34,8 @@ if (process.platform === "darwin")
 //Create tray icon.
 var tray = new gui.Tray(
 {
-	icon: "tray.png"
+	icon: "tray.png",
+	iconsAreTemplates: false
 });
 
 //Give it a menu.
