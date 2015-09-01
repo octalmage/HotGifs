@@ -232,7 +232,7 @@ function search()
 			if (showing)
 			{
 				win.height = 270;
-				$("#i").attr("src", res.data.images.original.url);	
+                $("#i").attr("src", res.data.images.original.url);	
                 visitor.event("User interaction", "Preview").send();	
 			}
 		}
