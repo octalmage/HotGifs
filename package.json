@@ -16,7 +16,8 @@
   },
   "license": "GPL v2",
   "dependencies": {
-    "auto-launch": "^0.1.18"
+    "auto-launch": "^0.1.18",
+    "universal-analytics": "^0.3.9"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
