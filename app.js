@@ -2,6 +2,9 @@ var gui = require("nw.gui");
 var win = gui.Window.get();
 var app_version = gui.App.manifest.version;
 
+var ua = require("universal-analytics");
+var visitor = ua("UA-67011723-1");
+
 var AutoLaunch = require("auto-launch");
 
 var runatstartup = new AutoLaunch(
@@ -106,6 +109,7 @@ var option = {
 			$("#s").focus();
 		}, 0);
 
+        visitor.event("User interaction", "Window Open").send();
 	},
 	failed: function(msg)
 	{
@@ -153,6 +157,8 @@ $(document).on("ready", function()
 				
 			e.preventDefault();
 			search();
+            
+            visitor.event("User interaction", "Skip").send();
 			return;
 		}
 		
@@ -202,6 +208,10 @@ $(document).on("ready", function()
 function search()
 {
 	keyword = $("#s").val();
+    
+    //Time Giphy response.
+    var start = new Date().getTime();
+    
 	$("#i").attr("src", "load.gif");
 	$("#scene").show();
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
@@ -211,6 +221,10 @@ function search()
 		url: url
 	}).done(function(res)
 	{
+        var end = new Date().getTime();
+        var time = end - start;
+        visitor.timing("User interaction", "Time to return Giphy results", time).send();
+        
 		//If results are found. 
 		if (typeof res.data.images != "undefined")
 		{
@@ -219,6 +233,7 @@ function search()
 			{
 				win.height = 270;
 				$("#i").attr("src", res.data.images.original.url);	
+                visitor.event("User interaction", "Preview").send();	
 			}
 		}
 		else
@@ -232,9 +247,10 @@ function search()
 					$("#instructions").fadeIn();
 				});
 			}
+            visitor.event("User interaction", "No Results", keyword).send();
 		}
 	});
-
+    visitor.event("User interaction", "Search", keyword).send();
 }
 
 function closeGUI()
