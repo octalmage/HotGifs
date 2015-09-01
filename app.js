@@ -207,7 +207,7 @@ $(document).on("ready", function()
 
 function search()
 {
-	keyword = $("#s").val();
+	var keyword = $("#s").val();
     
     //Time Giphy response.
     var start = new Date().getTime();
