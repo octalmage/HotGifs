@@ -47,7 +47,7 @@ module.exports = function(grunt)
 
 	grunt.loadNpmTasks("grunt-contrib-jshint");
 	grunt.loadNpmTasks("grunt-jsbeautifier");
-	grunt.loadNpmTasks('grunt-node-webkit-builder');
+	grunt.loadNpmTasks("grunt-node-webkit-builder");
 
 	grunt.registerTask("test", ["jshint"]);
 	grunt.registerTask("clean", ["jsbeautifier"]);
