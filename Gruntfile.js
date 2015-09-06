@@ -39,7 +39,7 @@ module.exports = function(grunt)
 				platforms: ["win32", "osx64", "linux32"],
 				version: "0.12.3",
 				buildDir: "./build",
-                macIcns: "./logo.icns"
+				macIcns: "./logo.icns"
 			},
 			src: ["index.html", "package.json", "app.js", "load.gif", "tray.png", "g.png", "config.json", "node_modules/auto-launch/**", "node_modules/universal-analytics/**"]
 		}
