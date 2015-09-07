@@ -94,7 +94,7 @@ module.exports = function(grunt)
 
 	grunt.registerTask("test", ["jshint"]);
 	grunt.registerTask("clean", ["jsbeautifier"]);
-	grunt.registerTask("build", ["nodewebkit"]);
+	grunt.registerTask("build", ["nodewebkit", "compress"]);
 	grunt.registerTask("default", ["jshint"]);
 
 };
