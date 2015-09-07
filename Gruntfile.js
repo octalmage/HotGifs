@@ -42,6 +42,48 @@ module.exports = function(grunt)
 				macIcns: "./logo.icns"
 			},
 			src: ["index.html", "package.json", "app.js", "load.gif", "tray.png", "g.png", "config.json", "node_modules/auto-launch/**", "node_modules/universal-analytics/**"]
+		},
+		compress:
+		{
+			mac:
+			{
+				options:
+				{
+					archive: "build/HotGifs/osx64/HotGifsMac.zip"
+				},
+				files: [
+				{
+					expand: true,
+					cwd: "build/HotGifs/osx64/",
+					src: ["**"]
+				}]
+			},
+			win:
+			{
+				options:
+				{
+					archive: "build/HotGifs/win32/HotGifsWin.zip"
+				},
+				files: [
+				{
+					expand: true,
+					cwd: "build/HotGifs/win32/",
+					src: ["**"]
+				}]
+			},
+			linux:
+			{
+				options:
+				{
+					archive: "build/HotGifs/linux32/HotGifsLinux.zip"
+				},
+				files: [
+				{
+					expand: true,
+					cwd: "build/HotGifs/linux32/",
+					src: ["**"]
+				}]
+			}
 		}
 	});
 
