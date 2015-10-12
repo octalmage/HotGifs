@@ -14,7 +14,7 @@
     "show": false,
     "show_in_taskbar": false
   },
-  "license": "GPL v2",
+  "license": "GPL-3.0",
   "dependencies": {
     "auto-launch": "^0.1.18",
     "universal-analytics": "^0.3.9"

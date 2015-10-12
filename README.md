@@ -25,6 +25,6 @@ Hold down enter to preview the gif, press tab to skip!
 
 ## License
 
-GPL v2
+GPL v3
 
 <p align="right"><img src="https://cloudup.com/ch-sJ_LRbm6+"></p>
