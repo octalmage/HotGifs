@@ -232,8 +232,8 @@ function search()
 			if (showing)
 			{
 				win.height = 270;
-                $("#i").attr("src", res.data.images.original.url);	
-                visitor.event("User interaction", "Preview").send();	
+				$("#i").attr("src", res.data.images.fixed_height_downsampled.url);
+				visitor.event("User interaction", "Preview").send();
 			}
 		}
 		else
