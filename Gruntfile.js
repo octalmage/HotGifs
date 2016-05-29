@@ -41,7 +41,7 @@ module.exports = function(grunt)
 				buildDir: "./build",
 				macIcns: "./logo.icns"
 			},
-			src: ["index.html", "package.json", "app.js", "load.gif", "tray.png", "g.png", "config.json", "node_modules/auto-launch/**", "node_modules/universal-analytics/**"]
+			src: ["index.html", "package.json", "app.js", "config.json", "assets/**", "node_modules/auto-launch/**", "node_modules/universal-analytics/**", "node_modules/configstore/**"]
 		},
 		compress:
 		{
