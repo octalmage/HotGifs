@@ -9,12 +9,16 @@ var AutoLaunch = require("auto-launch");
 
 var runatstartup = new AutoLaunch(
 {
-    name: "Hot Gifs",
+	name: "Hot Gifs",
 	isHidden: "false"
 });
 
-var fs = require("fs");
-var config = JSON.parse(fs.readFileSync("config.json", "utf8"));
+var config = require("./config.json");
+
+//Load user settings.
+var Configstore = require("configstore");
+var pkg = require("./package.json");
+var settings = new Configstore(pkg.name, {"opt-out": false, "check-for-updates": true});
 
 var keydown = 0;
 var showing = 0;
@@ -37,7 +41,7 @@ if (process.platform === "darwin")
 //Create tray icon.
 var tray = new gui.Tray(
 {
-	icon: "tray.png",
+	icon: "assets/img/tray.png",
 	iconsAreTemplates: false
 });
 
@@ -70,6 +74,12 @@ if (process.platform === "darwin")
 
 menu.append(new gui.MenuItem(
 {
+	label: "Settings",
+	click: settingsClicked
+}));
+
+menu.append(new gui.MenuItem(
+{
 	type: "separator"
 }));
 menu.append(new gui.MenuItem(
@@ -91,9 +101,6 @@ var clipboard = gui.Clipboard.get();
 var translate_endpoint = "http://api.giphy.com";
 var api_version = "v1";
 
-//Settings
-var shouldcheckforupdate = 1;
-
 //Hotkey Stuff
 var option = {
 	key: "Ctrl+Alt+G",
@@ -109,7 +116,7 @@ var option = {
 			$("#s").focus();
 		}, 0);
 
-        visitor.event("User interaction", "Window Open").send();
+		if (!settings.get('opt-out')) visitor.event("User interaction", "Window Open").send();
 	},
 	failed: function(msg)
 	{
@@ -132,7 +139,7 @@ runatstartup.isEnabled(function(found)
 
 $(document).on("ready", function()
 {
-	if (shouldcheckforupdate)
+	if (settings.get('check-for-updates'))
 	{
 		checkforupdate();
 	}
@@ -147,24 +154,24 @@ $(document).on("ready", function()
 		//If the instruction text isn't showing, and it's the preview instructions, show it.
 		if (!instructionsshowing() && $("#instructions").text() == previewtext)
 			$("#instructions").fadeIn();
-		
+
 		//Tab to skip gif.
 		if (e.keyCode == 9 && keydown)
 		{
 			//Hide skip instructions if they're currently showing.
 			if (instructionsshowing())
 				$("#instructions").fadeOut();
-				
+
 			e.preventDefault();
 			search();
-            
-            visitor.event("User interaction", "Skip").send();
+
+			if (!settings.get('opt-out')) visitor.event("User interaction", "Skip").send();
 			return;
 		}
-		
+
 		//Enter is currently held down.
 		if (keydown) return;
-			
+
 		//Search if enter is pressed down.
 		if (e.keyCode == 13)
 		{
@@ -174,12 +181,12 @@ $(document).on("ready", function()
 				$("#instructions").text(skiptext);
 				$("#instructions").fadeIn();
 			});
-			
+
 			keydown = 1;
 			search();
 		}
 	});
-	
+
 	$("#s").keyup(function(e)
 	{
 		//Hide window if enter is released.
@@ -199,7 +206,7 @@ $(document).on("ready", function()
 	{
 		//Close the dialog if esc is pressed.
 		if (e.keyCode == 27)
-		{	
+		{
 			closeGUI();
 		}
 	});
@@ -208,11 +215,11 @@ $(document).on("ready", function()
 function search()
 {
 	var keyword = $("#s").val();
-    
-    //Time Giphy response.
-    var start = new Date().getTime();
-    
-	$("#i").attr("src", "load.gif");
+
+	//Time Giphy response.
+	var start = new Date().getTime();
+
+	$("#i").attr("src", "assets/img/load.gif");
 	$("#scene").show();
 	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
 	$.ajax(
@@ -221,11 +228,11 @@ function search()
 		url: url
 	}).done(function(res)
 	{
-        var end = new Date().getTime();
-        var time = end - start;
-        visitor.timing("User interaction", "Time to return Giphy results", time).send();
-        
-		//If results are found. 
+		var end = new Date().getTime();
+		var time = end - start;
+		if (!settings.get('opt-out')) visitor.timing("User interaction", "Time to return Giphy results", time).send();
+
+		//If results are found.
 		if (typeof res.data.images != "undefined")
 		{
 			clipboard.set(res.data.images.original.url, "text");
@@ -233,7 +240,7 @@ function search()
 			{
 				win.height = 270;
 				$("#i").attr("src", res.data.images.downsized_medium.url);
-				visitor.event("User interaction", "Preview").send();
+				if (!settings.get('opt-out')) visitor.event("User interaction", "Preview").send();
 			}
 		}
 		else
@@ -247,10 +254,10 @@ function search()
 					$("#instructions").fadeIn();
 				});
 			}
-            visitor.event("User interaction", "No Results", keyword).send();
+			if (!settings.get('opt-out')) visitor.event("User interaction", "No Results", keyword).send();
 		}
 	});
-    visitor.event("User interaction", "Search", keyword).send();
+	if (!settings.get('opt-out')) visitor.event("User interaction", "Search", keyword).send();
 }
 
 function closeGUI()
@@ -297,4 +304,34 @@ function startupClicked()
 	{
 		runatstartup.disable();
 	}
+}
+
+function settingsClicked()
+{
+	var dialog = gui.Window.open('assets/view/settings.html',
+	{
+		width: 300,
+		height: 100,
+		toolbar: false
+	});
+
+	dialog.on("loaded", function()
+	{
+		// Load settings.
+		for (var x in settings.all)
+		{
+			dialog.window.$('input[name="' + x +'"]').prop('checked', settings.all[x]);
+		}
+
+		// On submit, save the settings.
+		dialog.window.$("form").on("submit", function(event)
+		{
+			event.preventDefault();
+			dialog.window.$('input:checkbox').map(function()
+			{
+				 settings.set(this.name, this.checked ? true : false);
+			});
+			dialog.close();
+		});
+	});
 }

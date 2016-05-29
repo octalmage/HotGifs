@@ -17,6 +17,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "auto-launch": "^0.1.18",
+    "configstore": "^2.0.0",
     "universal-analytics": "^0.3.9"
   },
   "devDependencies": {
