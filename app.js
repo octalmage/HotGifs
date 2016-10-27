@@ -18,7 +18,7 @@ var config = require("./config.json");
 //Load user settings.
 var Configstore = require("configstore");
 var pkg = require("./package.json");
-var settings = new Configstore(pkg.name, {"opt-out": false, "check-for-updates": true});
+var settings = new Configstore(pkg.name, {"opt-out": false, "check-for-updates": true, "nsfw": true});
 
 var keydown = 0;
 var showing = 0;
@@ -221,7 +221,13 @@ function search()
 
 	$("#i").attr("src", "assets/img/load.gif");
 	$("#scene").show();
-	url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
+
+	var url = translate_endpoint + "/" + api_version + "/gifs/translate?s=" + encodeURIComponent(keyword) + "&api_key=" + config.key;
+
+	if ( !settings.get('nsfw') ) {
+		url += '&rating=pg-13';
+	}
+
 	$.ajax(
 	{
 		type: "GET",
