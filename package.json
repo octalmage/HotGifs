@@ -1,7 +1,7 @@
 {
   "name": "HotGifs",
-  "main": "index.html",
-  "version": "0.2.0",
+  "main": "main.js",
+  "version": "0.3.0",
   "window": {
     "title": "Hot Gifs",
     "toolbar": false,
@@ -14,13 +14,28 @@
     "show": false,
     "show_in_taskbar": false
   },
+  "scripts": {
+    "start": "electron .",
+    "eslint": "eslint ./**/*.js"
+  },
   "license": "GPL-3.0",
   "dependencies": {
     "auto-launch": "^0.1.18",
     "configstore": "^2.0.0",
+    "node-fetch": "^1.7.3",
+    "riot": "^3.7.0",
     "universal-analytics": "^0.3.9"
   },
   "devDependencies": {
+    "electron": "^1.7.6",
+    "electron-forge": "^4.0.2",
+    "eslint": "^4.7.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-airbnb-base": "^12.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-riot": "^0.1.7",
     "grunt": "^0.4.5",
     "grunt-contrib-compress": "^0.13.0",
     "grunt-contrib-jshint": "^0.10.0",
