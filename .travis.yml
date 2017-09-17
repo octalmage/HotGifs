@@ -43,4 +43,9 @@ before_script:
 
 script:
   - npm run test
-  - if [ "$TRAVIS_BRANCH" = "master" ]; then npm run build; fi
+
+after_success:
+  if ([ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ]) &&
+      [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    npm run build
+  fi
