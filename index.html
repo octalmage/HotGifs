@@ -1,76 +1,21 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Hot Gif</title>
+<head>
+  <title>Hot Gif</title>
+  <style>
+  body {
+    margin: 0px;
+    padding: 0px;
+    background-color: #FF69B4;
+  }
+  </style>
+</head>
 
-    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-
-	<script src="app.js"></script>
-
-	<style type="text/css">
-	body
-	{
-        font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-		font-size:48px;
-		background-color: #FF69B4;
-		color: #FFF;
-		margin: 0px;
-		padding: 0px;
-		overflow:hidden;
-		-webkit-app-region: drag;
-
-	}
-	input
-	{
-		border: 0;
-		color: #FFF;
-		background-color: #FF69B4;
-		font-size:48px;
-		width: 498px;
-		text-align:center;
-		outline: none;
-		background:url(assets/img/g.png) no-repeat right bottom;
-		background-size: 75px;
-	}
-
-    img
-    {
-        display:block;
-        margin: 0 auto;
-        max-height: 200px;
-        max-width: 100%;
-        text-align: center;
-        position: relative;
-        top: 50%;
-        -webkit-transform: translateY(-50%);
-    }
-
-    #scene
-    {
-        height: 200px;
-        width: 100%;
-        display: none;
-    }
-
-    #instructions
-    {
-        display: none;
-        position: fixed;
-        left: 0px;
-        top: 45px;
-        font-size: 12px;
-        opacity: 0.5;
-    }
-
-	</style>
-
-  </head>
-  <body>
-    <input type="text" id="s">
-    <div id="scene">
-    <img src="#" id="i">
-    </div>
-    <div id="instructions">Hold enter to preview.</div>
-  </body>
+<body>
+  <main></main>
+</body>
+<script>
+  // You can also require other files to run in this process
+  require('./renderer.js');
+</script>
 </html>
