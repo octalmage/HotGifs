@@ -44,7 +44,6 @@ let appTray = null;
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
-let startup;
 
 function createWindow() {
   appTray = new Tray(path.join(__dirname, 'assets/img/tray.png'));
@@ -54,26 +53,24 @@ function createWindow() {
   contextMenu.append(new MenuItem({ type: 'separator' }));
   contextMenu.append(new MenuItem({ label: `v${appVersion}` }));
 
-  if (process.platform === 'darwin') {
-    startup = new MenuItem({
-      label: 'Run at startup?',
-      type: 'checkbox',
-      click: () => {
-        if (startup.checked) {
-          runatstartup.enable();
-        } else {
-          runatstartup.disable();
-        }
-      },
-    });
-    contextMenu.append(startup);
-
-    runatstartup.isEnabled((found) => {
-      if (found) {
-        startup.checked = true;
+  const startup = new MenuItem({
+    label: 'Run at startup?',
+    type: 'checkbox',
+    click: () => {
+      if (startup.checked) {
+        runatstartup.enable();
+      } else {
+        runatstartup.disable();
       }
-    });
-  }
+    },
+  });
+  contextMenu.append(startup);
+
+  runatstartup.isEnabled((found) => {
+    if (found) {
+      startup.checked = true;
+    }
+  });
 
   contextMenu.append(new MenuItem({
     label: 'Settings',
