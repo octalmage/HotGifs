@@ -1,28 +1,23 @@
-const electron = require('electron');
-
 const {
   app, BrowserWindow, Menu, Tray, globalShortcut, MenuItem,
-} = electron;
-app.dock.hide();
-const pkg = require('./package.json');
-
-const appVersion = pkg.version;
-
+} = require('electron'); // eslint-disable-line import/no-extraneous-dependencies;
 const path = require('path');
 const url = require('url');
-
+const fs = require('fs');
 const ua = require('universal-analytics');
-
-const visitor = ua('UA-67011723-1');
-
 const AutoLaunch = require('auto-launch');
+const Configstore = require('configstore');
+const checkForUpdate = require('./assets/js/checkForUpdate');
+const pkg = require('./package.json');
 
+// Hide dock.
+app.dock.hide();
+const visitor = ua('UA-67011723-1');
+const appVersion = pkg.version;
 const runatstartup = new AutoLaunch({
   name: 'Hot Gifs',
   isHidden: 'false',
 });
-
-const fs = require('fs');
 
 let config;
 // Fallback to public API key if config not found.
@@ -33,16 +28,12 @@ if (fs.existsSync(path.join(__dirname, 'config.json'))) {
 }
 
 // Load user settings.
-const Configstore = require('configstore');
-
 const settings = new Configstore(pkg.name, { 'opt-out': false, 'check-for-updates': true });
 
 const settingsLabels = {
   'opt-out': 'Opt-out of anonymous usage logging.',
   'check-for-updates': 'Automatically check for updates.',
 };
-
-const checkForUpdate = require('./assets/js/checkForUpdate');
 
 if (settings.get('check-for-updates')) {
   checkForUpdate(appVersion);

@@ -1,4 +1,4 @@
-const { Notification, shell } = require('electron');
+const { Notification, shell } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const fetch = require('node-fetch');
 
 module.exports = function checkforupdate(appVersion) {

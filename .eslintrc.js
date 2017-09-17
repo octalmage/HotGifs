@@ -1,4 +1,3 @@
 module.exports = {
-    "extends": "airbnb-base",
-    "plugins": ["riot"]
+  "extends": "airbnb-base",
 };

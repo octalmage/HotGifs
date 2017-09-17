@@ -1,9 +1,8 @@
-const { remote } = require('electron');
-
-const win = remote.getCurrentWindow();
-
+const { remote } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies;
 const riot = require('riot');
 require('../tags/settings.tag');
+
+const win = remote.getCurrentWindow();
 
 const update = (settings) => {
   win.settings.set(settings);

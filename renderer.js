@@ -1,10 +1,9 @@
 const riot = require('riot');
-const { remote, clipboard } = require('electron');
+const { remote, clipboard } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 
 const win = remote.getCurrentWindow();
 // Require our tags.
 require('./assets/tags/main.tag');
-require('./assets/tags/settings.tag');
 
 riot.mount('main', {
   win,
