@@ -45,4 +45,4 @@ script:
   - npm run test
 
 after_success:
-  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then npm run build; fi;
+  - npm run build
