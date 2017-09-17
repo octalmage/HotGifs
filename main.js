@@ -1,6 +1,7 @@
 const electron = require('electron');
+
 const {
-  app, BrowserWindow, Menu, Tray, globalShortcut, MenuItem, Notification, shell,
+  app, BrowserWindow, Menu, Tray, globalShortcut, MenuItem,
 } = electron;
 app.dock.hide();
 const pkg = require('./package.json');
@@ -21,64 +22,104 @@ const runatstartup = new AutoLaunch({
   isHidden: 'false',
 });
 
-// TODO: Go back to config file.
-const config = { key: '1234' };
+const fs = require('fs');
+
+let config;
+// Fallback to public API key if config not found.
+if (fs.existsSync(path.join(__dirname, 'config.json'))) {
+  config = require('./config.json'); // eslint-disable-line global-require import/no-unresolved
+} else {
+  config = { key: 'nbAalZ5usP7Ym4XbcbgbxH0LE0h4e5Eo' };
+}
 
 // Load user settings.
 const Configstore = require('configstore');
 
 const settings = new Configstore(pkg.name, { 'opt-out': false, 'check-for-updates': true });
 
-const fetch = require('node-fetch');
-checkforupdate();
+const settingsLabels = {
+  'opt-out': 'Opt-out of anonymous usage logging.',
+  'check-for-updates': 'Automatically check for updates.',
+};
+
+const checkForUpdate = require('./assets/js/checkForUpdate');
+
+if (settings.get('check-for-updates')) {
+  checkForUpdate(appVersion);
+}
 
 let appTray = null;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
-let mainWindow, startup;
+let mainWindow;
+let startup;
 
 function createWindow() {
-  appTray = new Tray('./assets/img/tray.png');
+  appTray = new Tray(path.join(__dirname, 'assets/img/tray.png'));
 
-   const contextMenu = new Menu();
-   contextMenu.append(new MenuItem({ label: 'Hot Gifs' }));
-   contextMenu.append(new MenuItem({ type: 'separator' }));
-   contextMenu.append(new MenuItem({ label: `v${appVersion}` }));
+  const contextMenu = new Menu();
+  contextMenu.append(new MenuItem({ label: 'Hot Gifs' }));
+  contextMenu.append(new MenuItem({ type: 'separator' }));
+  contextMenu.append(new MenuItem({ label: `v${appVersion}` }));
 
-   if (process.platform === 'darwin') {
-     startup = new MenuItem({
-        label: 'Run at startup?',
-        type: 'checkbox',
-        click: () => {
-          if (startup.checked) {
-            runatstartup.enable();
-          } else {
-            runatstartup.disable();
-          }
-        },
+  if (process.platform === 'darwin') {
+    startup = new MenuItem({
+      label: 'Run at startup?',
+      type: 'checkbox',
+      click: () => {
+        if (startup.checked) {
+          runatstartup.enable();
+        } else {
+          runatstartup.disable();
+        }
+      },
+    });
+    contextMenu.append(startup);
+
+    runatstartup.isEnabled((found) => {
+      if (found) {
+        startup.checked = true;
+      }
+    });
+  }
+
+  contextMenu.append(new MenuItem({
+    label: 'Settings',
+    click: () => {
+      const settingsWin = new BrowserWindow({
+        width: 300,
+        height: 100,
+        toolbar: false,
       });
-     contextMenu.append(startup);
+      settingsWin.settings = settings;
+      settingsWin.settingsLabels = settingsLabels;
+      settingsWin.loadURL(url.format({
+        pathname: path.join(__dirname, 'assets/view/settings.html'),
+        protocol: 'file:',
+        slashes: true,
+      }));
+    },
+  }));
+  contextMenu.append(new MenuItem({ type: 'separator' }));
+  contextMenu.append(new MenuItem({ label: 'Exit', click: () => app.exit() }));
 
-     runatstartup.isEnabled((found) => {
-       if (found) {
-         startup.checked = true;
-       }
-     });
-   }
-
-   contextMenu.append(new MenuItem({ type: 'separator' }));
-   contextMenu.append(new MenuItem({ label: 'Exit', click: () => app.exit() }));
-
-   appTray.setContextMenu(contextMenu);
+  appTray.setContextMenu(contextMenu);
 
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 500, height: 60, frame: false, show: false,
+    width: 500,
+    height: 60,
+    frame: false,
+    show: false,
+    center: true,
+    resizable: false,
+    alwaysOnTop: true,
   });
   // Pass options to the window.
   mainWindow.settings = settings;
   mainWindow.visitor = visitor;
+  mainWindow.config = config;
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -86,7 +127,7 @@ function createWindow() {
     protocol: 'file:',
     slashes: true,
   }));
-  const ret = globalShortcut.register('Command+Alt+G', () => {
+  globalShortcut.register('Command+Alt+G', () => {
     mainWindow.show();
     mainWindow.focus();
   });
@@ -107,21 +148,3 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
-
-function checkforupdate() {
-  fetch('https://api.github.com/repos/octalmage/hotgifs/releases')
-    .then((response) => response.json())
-    .then((releases) => {
-      const current_version = releases[0].name.substr(1, releases[0].name.length);
-      if (current_version !== appVersion) {
-        const updateNotification = new Notification({
-          title: 'Hot Gifs',
-          body: `Update available! \nInstalled version: ${appVersion}.\nLatest version: ${current_version}.`,
-        });
-        updateNotification.on('click', () => {
-          shell.openExternal('https://github.com/octalmage/HotGifs/releases/latest/');
-        });
-        updateNotification.show();
-      }
-    });
-}

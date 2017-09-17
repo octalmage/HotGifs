@@ -1,9 +1,9 @@
-<main >
-<input type="text" id="s" ref="input" onkeydown={ keydown } onkeyup={ keyup } autofocus="true" />
-<div id="scene" show={ showScene }>
-  <img src={ img } id="i">
-</div>
-<div id="instructions" show={ showInstructions }>{ instructions }</div>
+<main ondblclick={ dblclick }>
+  <input type="text" id="s" ref="input" onkeydown={ keydown } onkeyup={ keyup } autofocus="true" />
+  <div id="scene" show={ showScene }>
+    <img src={ img } id="i">
+  </div>
+  <div id="instructions" show={ showInstructions }>{ instructions }</div>
   <script>
     this.previewtext = this.instructions = 'Hold enter to preview.';
     this.skiptext = 'Press tab to skip.';
@@ -13,10 +13,6 @@
     this.showScene = false;
 
     keydown(e) {
-      // Close the dialog if esc is pressed.
-      if (e.keyCode == 27) {
-        this.closeWindow();
-      }
       // If the instruction text isn't showing, and it's the preview instructions, show it.
       if (!this.showInstructions && this.instructions == this.previewtext) { this.showInstructions = true; };
 
@@ -46,10 +42,14 @@
     };
 
     keyup(e) {
-      // Hide window if enter is released.
-      if (e.keyCode == 13) {
+      // Hide window if enter or esc is released.
+      if (e.keyCode === 13 || e.keyCode === 27) {
         this.closeWindow();
       }
+    }
+
+    dblclick() {
+      opts.win.center();
     }
 
     closeWindow() {
@@ -71,11 +71,10 @@
 
       // Time Giphy response.
       const start = new Date().getTime();
-      const config = { key: 'nbAalZ5usP7Ym4XbcbgbxH0LE0h4e5Eo' };
 
       this.img = 'assets/img/load.gif';
       this.showScene = true;
-      url = `${translate_endpoint}/${api_version}/gifs/translate?s=${encodeURIComponent(keyword)}&api_key=${config.key}`;
+      url = `${translate_endpoint}/${api_version}/gifs/translate?s=${encodeURIComponent(keyword)}&api_key=${opts.config.key}`;
       fetch(url).then((res) => res.json()).then((res) => {
         const end = new Date().getTime();
         const time = end - start;
@@ -100,8 +99,6 @@
       });
       if (!opts.settings.get('opt-out')) opts.visitor.event('User interaction', 'Search', keyword).send();
     };
-
-
     </script>
     <style scoped>
     :scope
