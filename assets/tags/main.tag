@@ -3,23 +3,23 @@
   <div id="scene" show={ showScene }>
     <img src={ img } id="i">
   </div>
-  <div id="instructions" show={ showInstructions }>{ instructions }</div>
+  <div class={ hide: !showPreviewInstructions, instructions: true }>Hold enter to preview.</div>
+  <div class={ hide: !showSkipInstructions, instructions: true }>Press tab to skip.</div>
   <script>
-    this.previewtext = this.instructions = 'Hold enter to preview.';
-    this.skiptext = 'Press tab to skip.';
     this.img = '#';
-    this.showInstructions = false;
+    this.showPreviewInstructions = false;
+    this.showSkipInstructions = false;
     this.isKeyDown = false;
     this.showScene = false;
 
     keydown(e) {
-      // If the instruction text isn't showing, and it's the preview instructions, show it.
-      if (!this.showInstructions && this.instructions == this.previewtext) { this.showInstructions = true; };
+      // If the instruction text isn't showing, show it.
+      if (!this.showPreviewInstructions && !this.showSkipInstructions && !this.showScene) { this.showPreviewInstructions = true; };
 
       // Tab to skip gif.
       if (e.keyCode === 9 && this.isKeyDown) {
         // Hide skip instructions if they're currently showing.
-        if (this.showInstructions) { this.showInstructions = false; }
+        if (this.showSkipInstructions) { this.showSkipInstructions = false; }
 
         e.preventDefault();
         this.search();
@@ -34,7 +34,8 @@
       // Search if enter is pressed down.
       if (e.keyCode === 13) {
         // Show skip instructions.
-        this.instructions = this.skiptext;
+        this.showSkipInstructions = true;
+        this.showPreviewInstructions = false;
 
         this.isKeyDown = true;
         this.search();
@@ -54,7 +55,8 @@
 
     closeWindow() {
       this.isKeyDown = false;
-      this.showInstructions = false;
+      this.showSkipInstructions = false;
+      this.showPreviewInstructions = false;
       this.showScene = false;
       this.refs.input.value = '';
       this.img = '';
@@ -143,13 +145,18 @@
       width: 100%;
     }
 
-    #instructions
+    .instructions
     {
       position: fixed;
       left: 0px;
       top: 45px;
       font-size: 12px;
       opacity: 0.5;
+      transition: opacity 0.8s;
+    }
+
+    .hide {
+      opacity: 0;
     }
     </style>
 </main>
