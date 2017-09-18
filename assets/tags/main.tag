@@ -3,23 +3,27 @@
   <div id="scene" show={ showScene }>
     <img src={ img } id="i">
   </div>
-  <div class={ hide: !showPreviewInstructions, instructions: true }>Hold enter to preview.</div>
-  <div class={ hide: !showSkipInstructions, instructions: true }>Press tab to skip.</div>
+  <virtual each={ value, name in instructions  }>
+    <div class={ hide: !value.show, instructions: true }>{ value.instruction }</div>
+  </virtual>
   <script>
     this.img = '#';
-    this.showPreviewInstructions = false;
-    this.showSkipInstructions = false;
     this.isKeyDown = false;
     this.showScene = false;
+    this.instructions = {
+      'preview': { instruction: 'Hold enter to preview.', show: false },
+      'skip': { instruction: 'Press tab to skip.', show: false },
+      'noresults': { instruction: 'No Results.', show: false },
+    };
 
     keydown(e) {
       // If the instruction text isn't showing, show it.
-      if (!this.showPreviewInstructions && !this.showSkipInstructions && !this.showScene) { this.showPreviewInstructions = true; };
+      if (!this.instructions.preview.show && !this.instructions.skip.show && !this.showScene) { this.showInstruction('preview'); };
 
       // Tab to skip gif.
       if (e.keyCode === 9 && this.isKeyDown) {
         // Hide skip instructions if they're currently showing.
-        if (this.showSkipInstructions) { this.showSkipInstructions = false; }
+        if (this.instructions.skip.show) { this.showInstruction(false); }
 
         e.preventDefault();
         this.search();
@@ -34,8 +38,7 @@
       // Search if enter is pressed down.
       if (e.keyCode === 13) {
         // Show skip instructions.
-        this.showSkipInstructions = true;
-        this.showPreviewInstructions = false;
+        this.showInstruction('skip');
 
         this.isKeyDown = true;
         this.search();
@@ -49,18 +52,26 @@
       }
     }
 
+    showInstruction(instructionToShow) {
+      Object.keys(this.instructions).forEach(name => {
+        if (name === instructionToShow) {
+          this.instructions[name].show = true;
+        } else {
+          this.instructions[name].show = false;
+        }
+      });
+    }
+
     dblclick() {
       opts.win.center();
     }
 
     closeWindow() {
       this.isKeyDown = false;
-      this.showSkipInstructions = false;
-      this.showPreviewInstructions = false;
+      this.showInstruction(false);
       this.showScene = false;
       this.refs.input.value = '';
       this.img = '';
-      this.instructions = this.previewtext;
 
       opts.win.setSize(500, 60);
       opts.win.hide();
@@ -93,8 +104,7 @@
         } else {
           opts.clipboard.writeText('No Results');
           if (this.showScene) {
-            // TODO: Fix fadeout.
-            this.instructions = 'No Results.';
+            this.showInstruction('noresults');
           }
           if (!opts.settings.get('opt-out')) opts.visitor.event('User interaction', 'No Results', keyword).send();
         }
