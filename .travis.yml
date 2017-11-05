@@ -31,7 +31,7 @@ addons:
       - xvfb
 
 install:
-  - echo "{ \"key\": \"${GIPHY_API_KEY}\" }" > config.json
+  - 'echo "{ \"key\": \"${GIPHY_API_KEY}\" }" > config.json'
   - nvm install 6
   - npm install
   - export DISPLAY=':99.0'
