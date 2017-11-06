@@ -10,6 +10,7 @@
     this.img = '#';
     this.isKeyDown = false;
     this.showScene = false;
+    this.preload = new Image();
     this.instructions = {
       'preview': { instruction: 'Hold enter to preview.', show: false },
       'skip': { instruction: 'Press tab to skip.', show: false },
@@ -99,14 +100,13 @@
           if (this.showScene) {
             opts.win.setSize(500, 270);
 
-            const preloadGif = new Image();
-            preloadGif.src = res.data.images.downsized_medium.url;
-
             this.img = res.data.images.downsized.url;
             this.update();
 
-            preloadGif.onload = () => {
-              this.img = preloadGif.src;
+            this.preload.src = res.data.images.downsized_medium.url;
+
+            this.preload.onload = () => {
+              this.img = this.preload.src;
               this.update();
             }
             if (!opts.settings.get('opt-out')) opts.visitor.event('User interaction', 'Preview').send();
