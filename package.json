@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "test": "npm run eslint",
+    "test": "echo FIX THIS",
     "eslint": "eslint ./**/*.js",
     "build": "electron-builder"
   },
@@ -50,7 +50,9 @@
       "target": [
         {
           "target": "zip",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ]
     },
