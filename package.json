@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "test": "echo FIX THIS",
+    "test": "npm run eslint",
     "eslint": "eslint ./**/*.js",
     "build": "electron-builder"
   },
