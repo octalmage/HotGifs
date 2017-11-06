@@ -1,4 +1,4 @@
-const { remote } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies;
+const { remote } = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const riot = require('riot');
 require('../tags/settings.tag');
 

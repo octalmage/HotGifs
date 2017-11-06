@@ -1,6 +1,6 @@
 const {
   app, BrowserWindow, Menu, Tray, globalShortcut, MenuItem,
-} = require('electron'); // eslint-disable-line import/no-extraneous-dependencies;
+} = require('electron'); // eslint-disable-line import/no-extraneous-dependencies
 const path = require('path');
 const url = require('url');
 const fs = require('fs');
@@ -22,7 +22,7 @@ const runatstartup = new AutoLaunch({
 let config;
 // Fallback to public API key if config not found.
 if (fs.existsSync(path.join(__dirname, 'config.json'))) {
-  config = require('./config.json'); // eslint-disable-line global-require import/no-unresolved
+  config = require('./config.json'); // eslint-disable-line global-require, import/no-unresolved
 } else {
   config = { key: 'nbAalZ5usP7Ym4XbcbgbxH0LE0h4e5Eo' };
 }
