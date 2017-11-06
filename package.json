@@ -29,15 +29,15 @@
     "universal-analytics": "^0.3.9"
   },
   "devDependencies": {
+    "electron": "^1.7.6",
     "electron-builder": "^19.27.7",
-    "eslint": "^4.7.0",
+    "eslint": "^4.10.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
-    "eslint-plugin-riot": "^0.1.7",
-    "electron": "^1.7.6"
+    "eslint-plugin-riot": "^0.1.7"
   },
   "build": {
     "asar": true,
@@ -50,7 +50,9 @@
       "target": [
         {
           "target": "zip",
-          "arch": ["x64"]
+          "arch": [
+            "x64"
+          ]
         }
       ]
     },
