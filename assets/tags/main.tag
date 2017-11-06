@@ -98,7 +98,17 @@
           opts.clipboard.writeText(res.data.images.original.url);
           if (this.showScene) {
             opts.win.setSize(500, 270);
-            this.img = res.data.images.downsized_medium.url;
+
+            const preloadGif = new Image();
+            preloadGif.src = res.data.images.downsized_medium.url;
+
+            this.img = res.data.images.downsized.url;
+            this.update();
+
+            preloadGif.onload = () => {
+              this.img = preloadGif.src;
+              this.update();
+            }
             if (!opts.settings.get('opt-out')) opts.visitor.event('User interaction', 'Preview').send();
           }
         } else {
