@@ -1,7 +1,7 @@
 {
   "name": "HotGifs",
   "main": "main.js",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "window": {
     "title": "Hot Gifs",
     "toolbar": false,
