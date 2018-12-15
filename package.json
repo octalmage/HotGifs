@@ -20,8 +20,8 @@
     "start": "electron .",
     "test": "npm run eslint",
     "eslint": "eslint ./**/*.js",
-    "build": "electron-builder --mac --linux",
-    "pack": "electron-builder --mac --linux --dir"
+    "build": "electron-builder",
+    "pack": "electron-builder --dir"
   },
   "license": "GPL-3.0",
   "dependencies": {
