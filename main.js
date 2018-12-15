@@ -5,7 +5,6 @@ const path = require('path');
 const url = require('url');
 const fs = require('fs');
 const ua = require('universal-analytics');
-const AutoLaunch = require('auto-launch');
 const Configstore = require('configstore');
 const checkForUpdate = require('./assets/js/checkForUpdate');
 const pkg = require('./package.json');
@@ -14,10 +13,6 @@ const pkg = require('./package.json');
 app.dock.hide();
 const visitor = ua('UA-67011723-1');
 const appVersion = pkg.version;
-const runatstartup = new AutoLaunch({
-  name: 'Hot Gifs',
-  isHidden: 'false',
-});
 
 let config;
 // Fallback to public API key if config not found.
@@ -58,19 +53,17 @@ function createWindow() {
     type: 'checkbox',
     click: () => {
       if (startup.checked) {
-        runatstartup.enable();
+        app.setLoginItemSettings({ openAtLogin: true });
       } else {
-        runatstartup.disable();
+        app.setLoginItemSettings({ openAtLogin: false });
       }
     },
   });
   contextMenu.append(startup);
 
-  runatstartup.isEnabled((found) => {
-    if (found) {
-      startup.checked = true;
-    }
-  });
+  if (app.getLoginItemSettings().openAtLogin) {
+    startup.checked = true;
+  }
 
   contextMenu.append(new MenuItem({
     label: 'Settings',

@@ -22,7 +22,6 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
-    "auto-launch": "^5.0.1",
     "configstore": "^2.0.0",
     "node-fetch": "^1.7.3",
     "riot": "^3.7.0",
