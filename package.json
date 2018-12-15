@@ -1,5 +1,7 @@
 {
   "name": "HotGifs",
+  "description": "Hot Gifs is the quickest way to find great gifs on your computer.",
+  "author": "Jason Stallings <octalmage@gmail.com>",
   "main": "main.js",
   "version": "0.3.3",
   "window": {
@@ -53,6 +55,21 @@
           "arch": [
             "x64"
           ]
+        }
+      ]
+    },
+    "linux": {
+      "icon": "./logo.png",
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        },
+        {
+          "target": "snap"
         }
       ]
     },
