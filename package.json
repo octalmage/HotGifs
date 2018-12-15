@@ -1,5 +1,7 @@
 {
   "name": "HotGifs",
+  "description": "Hot Gifs is the quickest way to find great gifs on your computer.",
+  "author": "Jason Stallings <octalmage@gmail.com>",
   "main": "main.js",
   "version": "0.3.3",
   "window": {
@@ -18,7 +20,8 @@
     "start": "electron .",
     "test": "npm run eslint",
     "eslint": "eslint ./**/*.js",
-    "build": "electron-builder"
+    "build": "electron-builder --mac --linux",
+    "pack": "electron-builder --mac --linux --dir"
   },
   "license": "GPL-3.0",
   "dependencies": {
@@ -29,8 +32,8 @@
     "universal-analytics": "^0.3.9"
   },
   "devDependencies": {
-    "electron": "^1.7.11",
-    "electron-builder": "^19.27.7",
+    "electron": ">=1.7.16",
+    "electron-builder": "^20.38.3",
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^12.0.0",
@@ -52,6 +55,17 @@
           "target": "zip",
           "arch": [
             "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "deb",
+          "arch": [
+            "x64",
+            "ia32"
           ]
         }
       ]
